@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Window.h"
+#include "GUI.h"
 #include "Database.h"
 #include "Launcher.h"
 
@@ -13,19 +13,18 @@ public:
 	void Run();
 
 private:
-	Database* db = nullptr;
+    std::string windowTitle = "Pulse Launcher";
+    int windowSizeX = 1280;
+    int windowSizeY = 720;
+    std::string dbPath = "../../../../data/launcher.db";
 
-	std::string windowTitle = "Pulse Launcher";
-	int windowSizeX = 1280;
-	int windowSizeY = 720;
+    Database db;
+    Window window;
+    GUI gui;
 
-	Window window;
-	
-	std::string dbPath = "../../../../data/launcher.db";
+    Launcher* launcher = nullptr;
 
-	Launcher* launcher = nullptr;
-
-	void Initialize();
-	void Update();
-	void Cleanup();
+    void Initialize();
+    void Update();
+    void Cleanup();
 };

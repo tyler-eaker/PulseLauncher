@@ -52,6 +52,7 @@ include_directories(
 set(SOURCES
     src/main.cpp
     src/app/Application.cpp
+    src/app/GUI.cpp
     src/app/Launcher.cpp
     src/app/Window.cpp
     src/data/Database.cpp
