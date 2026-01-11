@@ -1,16 +1,14 @@
-#include "Database.h"
 #include "Application.h"
 
-int main() {
-    
-    //Application app;
-    //app.Run();
+int main() 
+{
+    Application app;
+    app.Run();
 
     // This will create "launcher.db" in your build folder
     Database db("../../../../data/launcher.db");
 
     // Add a dummy game
-    std::cout << "Adding test game..." << std::endl;
     db.AddGame("GH3", "G:\\Games\\Guitar Hero III\\GH3.exe");
 
     // Read it back

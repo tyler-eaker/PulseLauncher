@@ -7,11 +7,11 @@ Database::Database(const std::string& dbPath)
 
     if (exit != SQLITE_OK) 
     {
-        std::cerr << "Error opening DB: " << sqlite3_errmsg(db) << std::endl;
+        std::cerr << "Error opening DB: " << sqlite3_errmsg(db) << '\n';
     }
     else 
     {
-        std::cout << "Database opened successfully!" << std::endl;
+        std::cout << "Database opened successfully!\n";
         Initialize();
     }
 }
@@ -39,12 +39,12 @@ void Database::Initialize()
 
     if (exit != SQLITE_OK) 
     {
-        std::cerr << "Error Creating Table: " << messageError << std::endl;
+        std::cerr << "Error Creating Table: " << messageError << '\n';
         sqlite3_free(messageError);
     }
     else 
     {
-        std::cout << "Table initialized." << std::endl;
+        std::cout << "Table initialized.\n";
     }
 
     this->games = GetAllGames();
@@ -54,15 +54,17 @@ bool Database::AddGame(const std::string& name, const std::string& path)
 {
     if (!fs::exists(path)) 
     {
-        std::cerr << "ERROR: " << path << " is an invalid filepath." << std::endl;
+        std::cerr << "ERROR: " << path << " is an invalid filepath." << '\n';
         return false;
     }
 
     if (GameExists(path)) 
     {
-        std::cout << "Game already exists in database: " << name << std::endl;
+        std::cout << "Game already exists in database: " << name << '\n';
         return false;
     }
+
+    std::cout << "Adding game: " << name << '(' << path << ")\n";
 
     std::string sql = "INSERT INTO GAMES (NAME, PATH) VALUES (?, ?);";
     sqlite3_stmt* stmt;
@@ -91,7 +93,7 @@ Game Database::GetGame(int id)
     sqlite3_stmt* stmt;
 
     if (sqlite3_prepare_v2(db, sql.c_str(), -1, &stmt, nullptr) != SQLITE_OK) {
-        std::cerr << "Error preparing statement: " << sqlite3_errmsg(db) << std::endl;
+        std::cerr << "Error preparing statement: " << sqlite3_errmsg(db) << '\n';
         return game;
     }
 
@@ -147,7 +149,7 @@ bool Database::GameExists(const std::string& path)
 
     if (sqlite3_prepare_v2(db, sql.c_str(), -1, &stmt, nullptr) != SQLITE_OK) 
     {
-        std::cerr << "Error checking existence: " << sqlite3_errmsg(db) << std::endl;
+        std::cerr << "Error checking existence: " << sqlite3_errmsg(db) << '\n';
         return false;
     }
 
@@ -164,7 +166,7 @@ void Database::DisplayGames()
 {
     for (const auto& game : games)
     {
-        std::cout << "Found: " << game.name << " | ID: " << game.id << std::endl;
+        std::cout << "Found: " << game.name << " | ID: " << game.id << '\n';
     }
 }
 
@@ -175,7 +177,7 @@ bool Database::UpdateGameName(int id, std::string& newName)
 
     if (sqlite3_prepare_v2(db, sql.c_str(), -1, &stmt, nullptr) != SQLITE_OK)
     {
-        std::cerr << "Error preparing update: " << sqlite3_errmsg(db) << std::endl;
+        std::cerr << "Error preparing update: " << sqlite3_errmsg(db) << '\n';
         return false;
     }
 
@@ -197,7 +199,7 @@ bool Database::UpdateGamePath(int id, std::string& newPath)
 
     if (sqlite3_prepare_v2(db, sql.c_str(), -1, &stmt, nullptr) != SQLITE_OK)
     {
-        std::cerr << "Error preparing update: " << sqlite3_errmsg(db) << std::endl;
+        std::cerr << "Error preparing update: " << sqlite3_errmsg(db) << '\n';
         return false;
     }
 
@@ -219,7 +221,7 @@ bool Database::UpdateGamePlaytime(int id, int newTotalSeconds)
 
     if (sqlite3_prepare_v2(db, sql.c_str(), -1, &stmt, nullptr) != SQLITE_OK) 
     {
-        std::cerr << "Error preparing update: " << sqlite3_errmsg(db) << std::endl;
+        std::cerr << "Error preparing update: " << sqlite3_errmsg(db) << '\n';
         return false;
     }
 
