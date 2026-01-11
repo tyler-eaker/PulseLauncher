@@ -24,6 +24,7 @@ include_directories(
 set(SOURCES
     src/main.cpp
     src/app/Application.cpp
+    src/app/Launcher.cpp
     src/data/Database.cpp
     external/sqlite/sqlite3.c
 )

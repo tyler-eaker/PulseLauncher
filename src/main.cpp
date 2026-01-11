@@ -1,21 +1,22 @@
-#include <filesystem>
 #include "Database.h"
+#include "Application.h"
 
 int main() {
+    
+    //Application app;
+    //app.Run();
+
     // This will create "launcher.db" in your build folder
     Database db("../../../../data/launcher.db");
 
     // Add a dummy game
     std::cout << "Adding test game..." << std::endl;
-    db.AddGame("Skyrim", "G:\\SteamLibrary\\steamapps\\common\\Skyrim Special Edition\\SkyrimSE.exe");
+    db.AddGame("GH3", "G:\\Games\\Guitar Hero III\\GH3.exe");
 
     // Read it back
     std::cout << "Reading games from DB..." << std::endl;
-    std::vector<Game> games = db.GetAllGames();
-
-    for (const auto& game : games) {
-        std::cout << "Found: " << game.name << " | ID: " << game.id << std::endl;
-    }
+    
+    db.DisplayGames();
 
     return 0;
 }

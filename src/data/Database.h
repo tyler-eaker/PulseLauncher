@@ -29,6 +29,8 @@ public:
 	std::vector<Game> GetAllGames();
 	bool GameExists(const std::string& path);
 
+	void DisplayGames();
+
 	bool UpdateGameName(int gameId, std::string& newName);
 	bool UpdateGamePath(int id, std::string& newPath);
 	bool UpdateGamePlaytime(int gameId, int newDurationSeconds);
@@ -36,4 +38,6 @@ public:
 private:
 	sqlite3* db;
 	void Initialize();
+
+	std::vector<Game> games;
 };

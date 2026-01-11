@@ -1,5 +1,8 @@
 #pragma once
 
+#include "Database.h"
+#include "Launcher.h"
+
 class Application 
 {
 public:
@@ -11,5 +14,12 @@ public:
 private:
 	const std::string name = "Pulse Launcher";
 
-	void
+	Database* db = nullptr;
+	std::string dbPath = "../../../../data/launcher.db";
+
+	Launcher* launcher = nullptr;
+
+	void Initialize();
+	void Update();
+	void Cleanup();
 };

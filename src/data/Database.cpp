@@ -46,6 +46,8 @@ void Database::Initialize()
     {
         std::cout << "Table initialized." << std::endl;
     }
+
+    this->games = GetAllGames();
 }
 
 bool Database::AddGame(const std::string& name, const std::string& path)
@@ -156,6 +158,14 @@ bool Database::GameExists(const std::string& path)
     sqlite3_finalize(stmt);
 
     return (result == SQLITE_ROW);
+}
+
+void Database::DisplayGames()
+{
+    for (const auto& game : games)
+    {
+        std::cout << "Found: " << game.name << " | ID: " << game.id << std::endl;
+    }
 }
 
 bool Database::UpdateGameName(int id, std::string& newName)
