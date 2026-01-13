@@ -47,12 +47,7 @@ void Application::Update()
 
 void Application::Run()
 {
-	auto games = m_db->GetAllGames();
-
-	for (const auto& game : games) 
-	{
-		std::cout << "Found: " << game.name << " | ID: " << game.id << std::endl;
-	}
+	m_db->PrintAllGames();
 
 	// Render loop
 	while (m_window.IsOpen())

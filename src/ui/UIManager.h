@@ -15,6 +15,8 @@ public:
 	void Render();
 
 private:
+	std::string m_fontPath = "../../../../resources/DMSans.ttf";
+
 	MainLayout m_mainLayout;
 	GameListView m_gameListView;
 	AddGamePopup m_addGamePopup;

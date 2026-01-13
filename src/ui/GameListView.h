@@ -12,7 +12,9 @@ class GameListView
 public:
     GameListView(DatabaseService* db, LauncherService* launcher);
 
+    // Helpers
     void Render();
+    void RefreshList();
 
 private:
     DatabaseService* m_db;

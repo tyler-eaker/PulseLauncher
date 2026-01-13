@@ -5,7 +5,7 @@
 #include "imgui_impl_opengl3.h"
 
 UIManager::UIManager(GLFWwindow* window, DatabaseService* db, LauncherService* launcher)
-    : m_gameListView(db, launcher), m_addGamePopup(db)
+    : m_gameListView(db, launcher), m_addGamePopup(db, &m_gameListView)
 {
     Initialize(window);
 }
@@ -28,6 +28,13 @@ void UIManager::Initialize(GLFWwindow* window)
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO(); (void)io;
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
+
+    if (fs::exists(m_fontPath))
+    {
+        // Set global UI font
+        io.Fonts->Clear();
+        ImFont* font = io.Fonts->AddFontFromFileTTF(m_fontPath.c_str(), 22.0f);
+    }
 
     ImGui::StyleColorsDark();
 

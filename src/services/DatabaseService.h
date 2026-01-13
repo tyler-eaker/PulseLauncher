@@ -31,6 +31,9 @@ public:
 	bool UpdateGamePath(int id, std::string& newPath);
 	bool UpdateGamePlaytime(int gameId, int newDurationSeconds);
 
+	// Debug
+	void PrintAllGames();
+
 private:
 	// Database
 	sqlite3* m_db;

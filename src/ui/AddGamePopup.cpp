@@ -1,14 +1,16 @@
 #include "AddGamePopup.h"
 
-AddGamePopup::AddGamePopup(DatabaseService* db)
-    : m_db(db)
+AddGamePopup::AddGamePopup(DatabaseService* db, GameListView* gameListView)
+    : m_db(db), m_gameListView(gameListView)
 {
 
 }
 
 void AddGamePopup::Render()
 {
-    ImGui::Begin("Add Game");
+    bool open = NULL;
+
+    ImGui::Begin("Add Game", &open, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove);
 
     static char pathBuffer[1024] = "";
     static char nameBuffer[64] = "";
@@ -48,6 +50,8 @@ void AddGamePopup::Render()
             memset(nameBuffer, 0, sizeof(nameBuffer));
             memset(pathBuffer, 0, sizeof(pathBuffer));
         }
+
+        m_gameListView->RefreshList();
     }
 
     ImGui::End();

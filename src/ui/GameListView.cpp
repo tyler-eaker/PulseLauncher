@@ -14,11 +14,9 @@ void GameListView::Render()
         m_needsRefresh = false;
     }
 
-    ImGui::Begin("My Library");
+    bool open = NULL;
 
-    if (ImGui::Button("Refresh List")) {
-        m_needsRefresh = true;
-    }
+    ImGui::Begin("My Library", &open, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar);
 
     ImGui::Separator();
 
@@ -51,4 +49,9 @@ void GameListView::Render()
     }
 
     ImGui::End();
+}
+
+void GameListView::RefreshList()
+{
+    m_needsRefresh = true;
 }

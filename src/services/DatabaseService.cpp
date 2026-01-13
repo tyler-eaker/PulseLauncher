@@ -282,3 +282,16 @@ bool DatabaseService::UpdateGamePlaytime(int id, int newTotalSeconds)
 
     return result == SQLITE_DONE;
 }
+
+void DatabaseService::PrintAllGames()
+{
+
+    std::cout << "Games in database:\n";
+
+    for (const auto& game : m_games)
+    {
+        std::cout << "Found: " << game.name << " | ID: " << game.id << std::endl;
+    }
+
+    std::cout << '\n';
+}
