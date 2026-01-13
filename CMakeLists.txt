@@ -47,6 +47,7 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/src/ui
     ${CMAKE_SOURCE_DIR}/external/sqlite
     ${CMAKE_SOURCE_DIR}/external/glfw/include
+    ${CMAKE_SOURCE_DIR}/external/tinyfiledialogs
     ${IMGUI_DIR}
     ${IMGUI_DIR}/backends
 )
@@ -73,6 +74,7 @@ set(SOURCES
     
     # External
     external/sqlite/sqlite3.c
+    external/tinyfiledialogs/tinyfiledialogs.c
     ${IMGUI_SOURCES}
 )
 

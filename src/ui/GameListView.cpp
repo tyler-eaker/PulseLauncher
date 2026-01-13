@@ -1,10 +1,9 @@
 #include "GameListView.h"
-#include "imgui.h"
-#include <string>
 
 GameListView::GameListView(DatabaseService* db, LauncherService* launcher)
     : m_db(db), m_launcher(launcher)
 {
+
 }
 
 void GameListView::Render()

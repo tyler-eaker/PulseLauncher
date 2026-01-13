@@ -5,7 +5,7 @@
 #include "imgui_impl_opengl3.h"
 
 UIManager::UIManager(GLFWwindow* window, DatabaseService* db, LauncherService* launcher)
-    : m_gameListView(db, launcher)
+    : m_gameListView(db, launcher), m_addGamePopup(db)
 {
     Initialize(window);
 }
@@ -19,7 +19,7 @@ void UIManager::Render()
 {
     // m_mainLayout.Render();
     m_gameListView.Render();
-    // m_addGamePopup.Render();
+    m_addGamePopup.Render();
 }
 
 void UIManager::Initialize(GLFWwindow* window)
