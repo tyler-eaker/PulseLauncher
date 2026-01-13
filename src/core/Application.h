@@ -5,11 +5,11 @@
 #include "imgui_impl_opengl3.h"
 
 #include "Window.h"
-
 #include "DatabaseService.h"
 #include "LauncherService.h"
-
 #include "UIManager.h"
+
+#include <memory>
 
 class Application
 {
@@ -21,18 +21,15 @@ public:
 	void Run();
 
 private:
-	// Local Variables
-	std::string m_dbPath = "../../../../data/launcher.db";
-
 	// Core
 	Window m_window;
 
 	// Services
-	DatabaseService m_db;
-	LauncherService m_launcher;
+	std::unique_ptr<DatabaseService> m_db;
+	std::unique_ptr<LauncherService> m_launcher;
 
 	// UI
-	UIManager m_ui;
+	std::unique_ptr<UIManager> m_ui;
 
 	// Internal Helpers
 	void Initialize();

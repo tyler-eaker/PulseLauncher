@@ -1,11 +1,9 @@
 #include "Application.h"
 
 Application::Application()
-	: m_db(m_dbPath), 
-	m_window("Pulse Launcher", 1280, 720),
-	m_ui(m_window.GetNativeWindow(), &m_db, &m_launcher)
+	: m_window("Pulse Launcher", 1280, 720)
 {
-
+	Initialize();
 }
 
 Application::~Application()
@@ -15,7 +13,9 @@ Application::~Application()
 
 void Application::Initialize()
 {
-
+	m_db = std::make_unique<DatabaseService>();
+	m_launcher = std::make_unique<LauncherService>();
+	m_ui = std::make_unique<UIManager>(m_window.GetNativeWindow(), m_db.get(), m_launcher.get());
 }
 
 void Application::Cleanup()
@@ -30,7 +30,7 @@ void Application::Update()
 	ImGui_ImplGlfw_NewFrame();
 	ImGui::NewFrame();
 
-	m_ui.Render();
+	m_ui->Render();
 
 	ImGui::Render();
 
@@ -47,7 +47,7 @@ void Application::Update()
 
 void Application::Run()
 {
-	auto games = m_db.GetAllGames();
+	auto games = m_db->GetAllGames();
 
 	for (const auto& game : games) 
 	{

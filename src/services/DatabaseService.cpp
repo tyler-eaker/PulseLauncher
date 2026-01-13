@@ -1,7 +1,6 @@
 #include "DatabaseService.h"
 
-DatabaseService::DatabaseService(const std::string& path)
-    : m_path(path)
+DatabaseService::DatabaseService()
 {
     Initialize();
 }
@@ -13,6 +12,55 @@ DatabaseService::~DatabaseService()
 
 void DatabaseService::Initialize()
 {
+    CreateDirectory();
+    OpenDatabase();
+}
+
+void DatabaseService::Cleanup()
+{
+    if (m_db)
+    {
+        sqlite3_close(m_db);
+    };
+}
+
+void DatabaseService::CreateDirectory()
+{
+    char* appDataPath = nullptr;
+    size_t len = 0;
+
+    if (_dupenv_s(&appDataPath, &len, "APPDATA") == 0 && appDataPath != nullptr)
+    {
+        // Path: C:\Users\User\AppData\Roaming\PulseLauncher
+        fs::path configDir = fs::path(appDataPath) / "PulseLauncher";
+
+        if (!fs::exists(configDir)) {
+
+            std::cout << "Database path not found.\n";
+            std::cout << "Creating database directory...\n";
+
+            if (fs::create_directories(configDir))
+            {
+                std::cout << "Database directory created.\n";
+            }
+
+        }
+
+        m_path = (configDir / "launcher.db").string();
+        free(appDataPath);
+    }
+    else
+    {
+        m_path = "launcher.db"; // Fallback, creates in the PulseLauncher.exe path
+    }
+
+    std::cout << "Database Path: " << m_path << "\n\n";
+}
+
+void DatabaseService::OpenDatabase()
+{
+    std::cout << "Opening database...\n";
+
     // Open the database connection
     int exit = sqlite3_open(m_path.c_str(), &m_db);
 
@@ -22,8 +70,10 @@ void DatabaseService::Initialize()
     }
     else
     {
-        std::cout << "Database opened successfully!\n";
-        
+        std::cout << "Database opened successfully!\n\n";
+
+        std::cout << "Creating table...\n";
+
         // Create the table if it doesn't exist
         std::string sql =
             "CREATE TABLE IF NOT EXISTS GAMES("
@@ -42,19 +92,11 @@ void DatabaseService::Initialize()
         }
         else
         {
-            std::cout << "Table initialized.\n";
+            std::cout << "Table initialized.\n\n";
         }
 
         this->m_games = GetAllGames();
     }
-}
-
-void DatabaseService::Cleanup()
-{
-    if (m_db)
-    {
-        sqlite3_close(m_db);
-    };
 }
 
 bool DatabaseService::GameExists(const std::string& path)
@@ -134,6 +176,11 @@ std::vector<Game> DatabaseService::GetAllGames()
     sqlite3_exec(m_db, sql, callback, &games, NULL);
 
     return games;
+}
+
+std::string DatabaseService::GetDBPath()
+{
+    return m_path;
 }
 
 bool DatabaseService::AddGame(const std::string& name, const std::string& path)

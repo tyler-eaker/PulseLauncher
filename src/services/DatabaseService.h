@@ -14,7 +14,7 @@ namespace fs = std::filesystem;
 class DatabaseService
 {
 public:
-	DatabaseService(const std::string& path);
+	DatabaseService();
 	~DatabaseService();
 
 	// Verifiers
@@ -23,6 +23,7 @@ public:
 	// Getters
 	Game GetGame(int id);
 	std::vector<Game> GetAllGames();
+	std::string GetDBPath();
 
 	// Setters
 	bool AddGame(const std::string& name, const std::string& path);
@@ -41,4 +42,6 @@ private:
 	// Internal Helpers
 	void Initialize();
 	void Cleanup();
+	void CreateDirectory();
+	void OpenDatabase();
 };
