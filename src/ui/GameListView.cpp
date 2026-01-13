@@ -14,9 +14,7 @@ void GameListView::Render()
         m_needsRefresh = false;
     }
 
-    bool open = NULL;
-
-    ImGui::Begin("My Library", &open, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar);
+    ImGui::Begin("My Library", nullptr, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove);
 
     ImGui::Separator();
 

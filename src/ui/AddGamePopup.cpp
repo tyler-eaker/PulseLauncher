@@ -8,9 +8,7 @@ AddGamePopup::AddGamePopup(DatabaseService* db, GameListView* gameListView)
 
 void AddGamePopup::Render()
 {
-    bool open = NULL;
-
-    ImGui::Begin("Add Game", &open, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove);
+    ImGui::Begin("Add Game", nullptr, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove);
 
     static char pathBuffer[1024] = "";
     static char nameBuffer[64] = "";
