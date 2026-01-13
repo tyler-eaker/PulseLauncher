@@ -40,8 +40,11 @@ set(IMGUI_SOURCES
 include_directories(
     ${CMAKE_SOURCE_DIR}/src
     ${CMAKE_SOURCE_DIR}/src/app
+    ${CMAKE_SOURCE_DIR}/src/core
     ${CMAKE_SOURCE_DIR}/src/data
-    ${CMAKE_SOURCE_DIR}/src/platform
+    ${CMAKE_SOURCE_DIR}/src/models
+    ${CMAKE_SOURCE_DIR}/src/services
+    ${CMAKE_SOURCE_DIR}/src/ui
     ${CMAKE_SOURCE_DIR}/external/sqlite
     ${CMAKE_SOURCE_DIR}/external/glfw/include
     ${IMGUI_DIR}
@@ -50,12 +53,25 @@ include_directories(
 
 # Source files
 set(SOURCES
-    src/main.cpp
-    src/app/Application.cpp
-    src/app/GUI.cpp
-    src/app/Launcher.cpp
-    src/app/Window.cpp
-    src/data/Database.cpp
+    # Core
+    src/core/main.cpp
+    src/core/Application.cpp
+    src/core/Window.cpp
+    
+    # Models
+    src/models/Game.h
+
+    # Services
+    src/services/DatabaseService.cpp
+    src/services/LauncherService.cpp
+    
+    # UI
+    src/ui/AddGamePopup.cpp
+    src/ui/GameListView.cpp
+    src/ui/MainLayout.cpp
+    src/ui/UIManager.cpp
+    
+    # External
     external/sqlite/sqlite3.c
     ${IMGUI_SOURCES}
 )
