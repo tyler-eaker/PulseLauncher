@@ -47,12 +47,10 @@ void Application::Update()
 
 void Application::Run()
 {
-	std::cout << "Adding test game..." << std::endl;
-	m_db.AddGame("Peggle", "G:\\SteamLibrary\\steamapps\\common\\Peggle Deluxe\\Peggle.exe");
-
 	auto games = m_db.GetAllGames();
 
-	for (const auto& game : games) {
+	for (const auto& game : games) 
+	{
 		std::cout << "Found: " << game.name << " | ID: " << game.id << std::endl;
 	}
 

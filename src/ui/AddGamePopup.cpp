@@ -35,7 +35,7 @@ void AddGamePopup::Render()
         {
             if (nameBuffer[0] == '\0')
             {
-                int gameNum = m_db->GetAllGames().size() + 1;
+                auto gameNum = m_db->GetAllGames().size() + 1;
                 std::string name = "Game " + std::to_string(gameNum);
 
                 m_db->AddGame(name, pathBuffer);
